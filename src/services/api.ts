@@ -1,4 +1,4 @@
-import type { ApiResponse } from '../types/skin'
+import type { ApiResponse, ReportsResponse } from '../types/skin'
 
 const BASE_URL = 'http://localhost:8000'
 
@@ -23,4 +23,14 @@ export async function analyzeSkin(imageBase64: string): Promise<ApiResponse> {
   }
 
   return data
+}
+
+export async function getReports(userId: string): Promise<ReportsResponse> {
+  const response = await fetch(`${BASE_URL}/api/reports/${userId}`)
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch reports: ${response.status} ${response.statusText}`)
+  }
+
+  return response.json()
 }

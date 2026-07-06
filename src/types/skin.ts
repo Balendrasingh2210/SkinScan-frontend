@@ -24,3 +24,14 @@ export interface ApiResponse {
   skin_report: SkinReport
   timestamp: string
 }
+
+export interface ReportItem {
+  id: string
+  report: SkinReport
+  timestamp: string
+}
+
+export interface ReportsResponse {
+  user_id: string
+  reports: ReportItem[]
+}

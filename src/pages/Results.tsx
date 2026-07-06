@@ -186,14 +186,20 @@ export default function Results() {
         </section>
 
         {/* CTA */}
-        <div className="text-center pb-8">
+        <div className="text-center pb-8 flex flex-col items-center gap-3">
           <button
             onClick={() => navigate('/scan')}
             className="bg-violet-600 hover:bg-violet-700 text-white font-semibold px-8 py-3 rounded-2xl transition-colors cursor-pointer shadow-sm"
           >
             Scan Again
           </button>
-          <p className="mt-3 text-xs text-gray-400">Your skin changes — scan regularly for updated insights.</p>
+          <button
+            onClick={() => navigate('/')}
+            className="text-sm text-gray-500 hover:text-gray-700 font-medium px-4 py-2 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer"
+          >
+            ← Back to Home
+          </button>
+          <p className="text-xs text-gray-400">Your skin changes — scan regularly for updated insights.</p>
         </div>
       </main>
     </div>

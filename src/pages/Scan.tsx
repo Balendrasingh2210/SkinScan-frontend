@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { analyzeSkin } from '../services/api'
+import { saveReport, createUserIfNotExists } from '../services/firestore'
+import { useAuth } from '../hooks/useAuth'
 
 type CameraState = 'loading' | 'ready' | 'denied' | 'analyzing' | 'api-error' | 'error'
 
 export default function Scan() {
   const navigate = useNavigate()
+  const { user } = useAuth()
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const streamRef = useRef<MediaStream | null>(null)
@@ -59,6 +62,10 @@ export default function Scan() {
     setState('analyzing')
     try {
       const data = await analyzeSkin(base64)
+      if (user) {
+        await createUserIfNotExists(user.uid, user.displayName ?? '', user.email ?? '')
+        await saveReport(user.uid, data.skin_report)
+      }
       navigate('/results', { state: { report: data, imageUrl: dataUrl } })
     } catch (err) {
       setErrorMsg(err instanceof Error ? err.message : 'Analysis failed. Please try again.')
