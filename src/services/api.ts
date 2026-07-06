@@ -1,6 +1,6 @@
 import type { ApiResponse, ReportsResponse } from '../types/skin'
 
-const BASE_URL = 'http://localhost:8000'
+const BASE_URL = 'https://skinscan-backend-server.onrender.com'
 
 export async function analyzeSkin(imageBase64: string): Promise<ApiResponse> {
   const response = await fetch(`${BASE_URL}/api/skin-analysis`, {
